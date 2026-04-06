@@ -1,0 +1,150 @@
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body-sim { display: block; font-family: var(--font-sans); }
+  .site-wrap {
+    background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+    min-height: 420px;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    position: relative;
+  }
+  .site-nav {
+    background: rgba(0,0,0,0.35);
+    display: flex;
+    padding: 0;
+    backdrop-filter: blur(4px);
+  }
+  .site-nav a {
+    color: #fff;
+    padding: 14px 18px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: background 0.2s;
+    display: block;
+  }
+  .site-nav a:hover { background: rgba(255,255,255,0.12); }
+  .site-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px 40px;
+    gap: 28px;
+  }
+  .avatar-ring {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    border: 3px solid rgba(255,255,255,0.6);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    color: #fff;
+    font-weight: 500;
+  }
+  #main-text {
+    color: #fff;
+    font-size: 26px;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 0.03em;
+    transition: all 0.4s cubic-bezier(.175,.885,.32,1.275);
+    text-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  }
+  #main-text.changed {
+    font-size: 32px;
+    color: #ffe600;
+    text-shadow: 0 0 20px rgba(255,230,0,0.5), 0 2px 12px rgba(0,0,0,0.3);
+  }
+  .prank-btn {
+    padding: 13px 36px;
+    font-size: 16px;
+    font-weight: 500;
+    background: #fff;
+    color: #0072ff;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    transition: transform 0.15s, box-shadow 0.15s;
+    letter-spacing: 0.02em;
+  }
+  .prank-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.2); }
+  .prank-btn:active { transform: scale(0.97); }
+  .prank-btn.pressed {
+    background: #ffe600;
+    color: #222;
+  }
+  .particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; }
+  .p { position: absolute; border-radius: 50%; opacity: 0; animation: float 2s ease-out forwards; }
+  @keyframes float {
+    0% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-120px) scale(0.3); }
+  }
+  .tag {
+    font-size: 11px;
+    background: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.8);
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+  }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlakaoLnwza_007</title>
+</head>
+<div class="site-wrap" id="site-wrap">
+  <div class="particles" id="particles"></div>
+  <nav class="site-nav">
+    <a href="https://www.google.com/?hl=th">google</a>
+    <a href="https://chat.openai.com/">chat gpt</a>
+    <a href="https://gemini.google.com/">gemini</a>
+  </nav>
+  <div class="site-center">
+    <div class="avatar-ring">P</div>
+    <p id="main-text">PlakaoLnwza_007</p>
+    <button class="prank-btn" id="prank-btn">press here!</button>
+    <span class="tag">plakao</span>
+  </div>
+</div>
+
+<script>
+const btn = document.getElementById('prank-btn');
+const text = document.getElementById('main-text');
+const particlesEl = document.getElementById('particles');
+let pressed = false;
+
+function spawnParticles() {
+  const colors = ['#ffe600','#ff6b6b','#fff','#00ffcc','#ff9fff'];
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'p';
+    const size = 8 + Math.random() * 14;
+    p.style.cssText = `width:${size}px;height:${size}px;background:${colors[Math.floor(Math.random()*colors.length)]};left:${20+Math.random()*60}%;top:${30+Math.random()*40}%;animation-delay:${Math.random()*0.4}s;animation-duration:${1.2+Math.random()*1}s`;
+    particlesEl.appendChild(p);
+    setTimeout(() => p.remove(), 2500);
+  }
+}
+
+btn.addEventListener('click', () => {
+  if (!pressed) {
+    pressed = true;
+    text.textContent = 'U R Gay!';
+    text.classList.add('changed');
+    btn.textContent = 'haha got u';
+    btn.classList.add('pressed');
+    spawnParticles();
+  } else {
+    pressed = false;
+    text.textContent = 'PlakaoLnwza_007';
+    text.classList.remove('changed');
+    btn.textContent = 'press here!';
+    btn.classList.remove('pressed');
+  }
+});
+</script>
